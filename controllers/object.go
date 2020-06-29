@@ -18,6 +18,7 @@ type ObjectController struct {
 // @Success 200 {string} models.Object.Id
 // @Failure 403 body is empty
 // @router / [post]
+// 注解路由
 func (o *ObjectController) Post() {
 	var ob models.Object
 	json.Unmarshal(o.Ctx.Input.RequestBody, &ob)

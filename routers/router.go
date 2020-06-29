@@ -8,6 +8,7 @@
 package routers
 
 import (
+	"github.com/astaxie/beego/context"
 	"github.com/yanluwei/qraphql-go/controllers"
 
 	"github.com/astaxie/beego"
@@ -26,5 +27,13 @@ func init() {
 			),
 		),
 	)
+	beego.Get("/v1/version", func(ctx *context.Context) {
+		ctx.Output.Body([]byte("固定路由"))
+	})
+
+	// 不写找方法名为GET的方法，动作与方法名对应
+	//beego.Router("/v1/student",&controllers.StudentController{})
+	beego.Router("/v1/student",&controllers.StudentController{},"get:ListStudent")
+
 	beego.AddNamespace(ns)
 }
