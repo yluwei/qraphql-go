@@ -1,0 +1,56 @@
+# 类似于 map, 左边表示字段名称，右边表示类型
+# [] 表示列表
+# ！ 修饰符表示非空
+type Vote {
+    id: ID!
+    createdAt: Time
+    updatedAt: Time
+    deletedAt: Time
+    title: String
+    description: String
+    options: [Options!]!
+    deadline: Time
+    class: VoteClass
+}
+
+type Options {
+    name: String
+}
+
+# 输入类型: 一般用户更改资源中的输入是列表对象，完成复杂任务
+
+input optionsInput {
+    name:String!
+}
+
+# 枚举类型：投票区分：单选、多选两个选项值
+enum VoteClass {
+    SINGLE
+    MULTIPLE
+}
+
+# 自定义类型，默认类型（ID、String、Boolean、Float）不包含 Time 类型
+scalar Time
+
+# 对象类型，用于检查服务是否完好
+type Ping {
+    data: String
+    code: Int
+}
+
+
+# Query、Mutation 关键字固定
+# 左边表示操作名称，右边表示返回的值的类型
+# Query 一般完成查询操作
+# Mutation 一般完成资源的创建、更改、删除操作
+
+type Query {
+    ping: Ping
+    pinWithData(data: String): Ping
+    vote(id:ID!): Vote
+}
+
+type Mutation {
+    createVote(title:String!, options:[optionsInput],deadline:Time, description:String, class:VoteClass!): Vote
+    updateVote(title:String!, description:String!): Vote
+}

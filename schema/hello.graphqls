@@ -1,0 +1,8 @@
+type RootQuery{
+    hello(id: Int,name: String): [Hello]
+}
+
+type Hello{
+   id Int
+   name String
+}
